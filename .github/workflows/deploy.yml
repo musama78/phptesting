@@ -9,39 +9,107 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    env:
+      IMAGE_NAME: "phpcicd"
+      DOCKER_REGISTRY: "muhammadusama7"
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      run: |
-        echo "-------------------- Checkout Done --------------------"
-#     - name: Set up Minikube
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Remove Previous Images and Containers
+        run: |
+          # Removing Containers
+          containerName=$(sudo docker ps -aqf 'name=phpcicd')
+          if [ -n "$containerName" ]; then
+            sudo docker rm -f $containerName
+            echo "++++++++++++++++++++ Previous Containers Removed ++++++++++++++++++++"
+          fi
+
+          # Removing Images
+          if docker images | grep phpcicd >/dev/null 2>&1; then
+            docker rmi -f $(docker images -q '*phpcicd*')
+            echo "++++++++++++++++++++ Previous Images Removed ++++++++++++++++++++"
+          fi
+
+      - name: Build and Tag Image
+        run: |
+          tag=$(date +%Y%m%d-%H.%M.%S)
+          imageWithTag="${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${tag}"
+          
+          # Build image
+          docker build -t ${{ env.IMAGE_NAME }}:${tag} .
+          echo "-------------------- Image Build Done --------------------"
+          
+          # Tag image
+          docker tag ${{ env.IMAGE_NAME }}:${tag} $imageWithTag
+          echo "-------------------- Image Tag Done --------------------"
+
+      - name: Push Image
+        run: |
+          # Docker Login
+          echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+          echo "-------------------- Docker Login Done --------------------"
+          
+          # Push image
+          docker push $imageWithTag
+          echo "-------------------- Image Push Done --------------------"
+
+      - name: Create Container
+        run: |
+          docker run -d -p 80:80 --name ${{ env.IMAGE_NAME }}-${tag} $imageWithTag
+          echo "-------------------- Container Deployment Done --------------------"
+
+
+##################################################################
+##################################################################
+##################################################################
+
+
+# name: Deploy to Kubernetes
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
 #       run: |
-#         sudo minikube config set driver none
-#         sudo minikube start
+#         echo "-------------------- Checkout Done --------------------"
+# #     - name: Set up Minikube
+# #       run: |
+# #         sudo minikube config set driver none
+# #         sudo minikube start
 
-    - name: Set up Docker Buildx
-#       uses: docker/setup-buildx-action@v1
-      run: |
-        docker build . -f phpcicd:latest
-        echo "-------------------- Image Build Done --------------------"
-        docker tag muhammadusama7/phpcicd:latest
-        echo "-------------------- Image Tag Done --------------------"
-
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: muhammadusama7/phpcicd:latest
-
-#     - name: Set up kubectl
+#     - name: Set up Docker Buildx
+# #       uses: docker/setup-buildx-action@v1
 #       run: |
-#         sudo mv ~/.kube $HOME/.kube
-#         sudo chown -R $USER $HOME/.kube
-#         sudo chgrp -R $USER $HOME/.kube
-#         echo "$HOME/.kube/config"
+#         docker build . -f phpcicd:latest
+#         echo "-------------------- Image Build Done --------------------"
+#         docker tag muhammadusama7/phpcicd:latest
+#         echo "-------------------- Image Tag Done --------------------"
 
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl apply -f deployment.yaml
-        kubectl apply -f service.yaml
+#     - name: Build and push Docker image
+#       uses: docker/build-push-action@v2
+#       with:
+#         context: .
+#         push: true
+#         tags: muhammadusama7/phpcicd:latest
+
+# #     - name: Set up kubectl
+# #       run: |
+# #         sudo mv ~/.kube $HOME/.kube
+# #         sudo chown -R $USER $HOME/.kube
+# #         sudo chgrp -R $USER $HOME/.kube
+# #         echo "$HOME/.kube/config"
+
+#     - name: Deploy to Kubernetes
+#       run: |
+#         kubectl apply -f deployment.yaml
+#         kubectl apply -f service.yaml
