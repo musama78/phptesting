@@ -39,26 +39,26 @@ jobs:
           echo $imageWithTag
           
           # Build image
-          docker build -t muhammadusama7/phpcicd:${tag} .
+          docker build -t phpcicd:${tag} .
           echo "-------------------- Image Build Done --------------------"
           
-          # Tag image
-         # docker tag phpcicd:${tag} $imageWithTag
-          #echo "-------------------- Image Tag Done --------------------"
+#          # Tag image
+#          docker tag phpcicd:${tag} $imageWithTag
+#          echo "-------------------- Image Tag Done --------------------"
 
-      - name: Push Image
-        run: |
-          # Docker Login
-          echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
-          echo "-------------------- Docker Login Done --------------------"
+#       - name: Push Image
+#         run: |
+#           # Docker Login
+#           echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+#           echo "-------------------- Docker Login Done --------------------"
           
-          # Push image
-          docker push muhammadusama7/phpcicd:${tag}
-          echo "-------------------- Image Push Done --------------------"
+#           # Push image
+#           docker push muhammadusama7/phpcicd:${tag}
+#           echo "-------------------- Image Push Done --------------------"
 
       - name: Create Container
         run: |
-          docker run -d -p 80:80 --name ${{ env.IMAGE_NAME }}-${tag} $imageWithTag
+          docker run -d -p 80:80 --name abc phpcicd:${tag}
           echo "-------------------- Container Deployment Done --------------------"
 
 
