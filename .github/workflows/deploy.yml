@@ -23,7 +23,7 @@ jobs:
           containerName=$(sudo docker ps -aqf 'name=phpcicd')
           if [ -n "$containerName" ]; then
             sudo docker rm -f $containerName
-            echo "++++++++++++++++++++ Previous Containers Removed ++++++++++++++++++++"
+            echo "++++++++++++++++++++ Previous Containers Removed ++++++++++-++++++++++"
           fi
 
           # Removing Images
