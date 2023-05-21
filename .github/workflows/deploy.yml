@@ -11,9 +11,9 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
-      run: |
-        echo "-------------------- Checkout Done --------------------"
+       uses: actions/checkout@v2
+#       run: |
+#         echo "-------------------- Checkout Done --------------------"
 #     - name: Set up Minikube
 #       run: |
 #         sudo minikube config set driver none
