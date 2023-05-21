@@ -39,12 +39,12 @@ jobs:
           echo $imageWithTag
           
           # Build image
-          docker build -t phpcicd:${tag} .
+          docker build -t muhammadusama7/phpcicd:${tag} .
           echo "-------------------- Image Build Done --------------------"
           
           # Tag image
-          docker tag phpcicd:${tag} $imageWithTag
-          echo "-------------------- Image Tag Done --------------------"
+         # docker tag phpcicd:${tag} $imageWithTag
+          #echo "-------------------- Image Tag Done --------------------"
 
       - name: Push Image
         run: |
