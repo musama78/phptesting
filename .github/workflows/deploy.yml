@@ -9,9 +9,9 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    env:
-      IMAGE_NAME: "phpcicd"
-      DOCKER_REGISTRY: "muhammadusama7"
+#     env:
+#       IMAGE_NAME: "phpcicd"
+#       DOCKER_REGISTRY: "muhammadusama7"
 
     steps:
       - name: Checkout code
@@ -35,15 +35,15 @@ jobs:
       - name: Build and Tag Image
         run: |
           tag=$(date +%Y%m%d-%H.%M.%S)
-          imageWithTag="${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${tag}"
+          imageWithTag="muhammadusama7/phpcicd:${tag}"
           echo $imageWithTag
           
           # Build image
-          docker build -t ${{ env.IMAGE_NAME }}:${tag} .
+          docker build -t phpcicd:${tag} .
           echo "-------------------- Image Build Done --------------------"
           
           # Tag image
-          docker tag ${{ env.IMAGE_NAME }}:${tag} $imageWithTag
+          docker tag phpcicd:${tag} $imageWithTag
           echo "-------------------- Image Tag Done --------------------"
 
       - name: Push Image
