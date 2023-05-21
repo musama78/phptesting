@@ -12,14 +12,20 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+      run: |
+        echo "-------------------- Checkout Done --------------------"
 #     - name: Set up Minikube
 #       run: |
 #         sudo minikube config set driver none
 #         sudo minikube start
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+#       uses: docker/setup-buildx-action@v1
+      run: |
+        docker build . -f phpcicd:latest
+        echo "-------------------- Image Build Done --------------------"
+        docker tag muhammadusama7/phpcicd:latest
+        echo "-------------------- Image Tag Done --------------------"
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
