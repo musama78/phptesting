@@ -53,7 +53,7 @@ jobs:
           echo "-------------------- Docker Login Done --------------------"
           
           # Push image
-          docker push $imageWithTag
+          docker push muhammadusama7/phpcicd:${tag}
           echo "-------------------- Image Push Done --------------------"
 
       - name: Create Container
