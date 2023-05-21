@@ -34,9 +34,8 @@ jobs:
 
       - name: Build and Tag Image
         run: |
-#          tag=$(date +%Y%m%d-%H.%M.%S)
-#          imageWithTag="muhammadusama7/phpcicd:${tag}"
-#          echo $imageWithTag
+          tag=$(date +%Y%m%d-%H.%M.%S)
+          imageWithTag="muhammadusama7/phpcicd:${tag}"
           
           # Build image
           docker build -t phpcicd:latest .
