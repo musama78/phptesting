@@ -34,12 +34,12 @@ jobs:
 
       - name: Build and Tag Image
         run: |
-          tag=$(date +%Y%m%d-%H.%M.%S)
-          imageWithTag="muhammadusama7/phpcicd:${tag}"
-          echo $imageWithTag
+#          tag=$(date +%Y%m%d-%H.%M.%S)
+#          imageWithTag="muhammadusama7/phpcicd:${tag}"
+#          echo $imageWithTag
           
           # Build image
-          docker build -t phpcicd:${tag} .
+          docker build -t phpcicd:latest .
           echo "-------------------- Image Build Done --------------------"
           
 #          # Tag image
@@ -58,7 +58,7 @@ jobs:
 
       - name: Create Container
         run: |
-          docker run -d -p 80:80 --name abc phpcicd:${tag}
+          docker run -d -p 80:80 --name abc phpcicd:latest
           echo "-------------------- Container Deployment Done --------------------"
 
 
