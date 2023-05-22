@@ -10,12 +10,12 @@ jobs:
     runs-on: self-hosted
 
     env:
-      tag: $(date +%Y%m%d-%H.%M.%S)
+#       tag: $(date +%Y%m%d-%H.%M.%S)
 
       IMAGE_NAME: "phpcicd"
       DOCKER_REGISTRY: "muhammadusama7"
 
-      CI_REGISTRY_IMAGE: muhammadusama7/phpcicd:${{ tag }}
+      CI_REGISTRY_IMAGE: muhammadusama7/phpcicd:latest
 
       CI_REGISTRY_USER: ${{ secrets.DOCKER_HUB_USERNAME }}
       CI_REGISTRY_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
