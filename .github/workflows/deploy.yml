@@ -38,13 +38,13 @@ jobs:
     - name: Docker push
       run: docker push $CI_REGISTRY_IMAGE
       
-#     - name: Deploy to Kubernetes
-#       run: |
-#         kubectl apply -f deployment.yml
-#         kubectl apply -f service.yml
-    - name: Deploy to k8s
+    - name: Deploy to Kubernetes
       run: |
-        kubectl run my-pod --image=muhammadusama7/phpcicd:latest --insecure-skip-tls-verify
+        kubectl apply -f deployment.yml --insecure-skip-tls-verify
+        kubectl apply -f service.yml --insecure-skip-tls-verify
+#     - name: Deploy to k8s
+#       run: |
+#         kubectl run my-pod --image=muhammadusama7/phpcicd:latest --insecure-skip-tls-verify
 
 
 ##############################################
