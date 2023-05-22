@@ -10,7 +10,7 @@ jobs:
     runs-on: self-hosted
 
     env:
-      tag=$(date +%Y%m%d-%H.%M.%S)
+      tag: $(date +%Y%m%d-%H.%M.%S)
 
       IMAGE_NAME: "phpcicd"
       DOCKER_REGISTRY: "muhammadusama7"
