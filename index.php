@@ -4,7 +4,7 @@
 </head>
 <body>
 
-    <?php echo "<h1>Hi! I'm Usama, This is SCM auto pull + image push... 07.40</h1>"; ?>
+    <?php echo "<h1>Hi! I'm Usama, This is SCM auto pull + image push... 05.01</h1>"; ?>
     <?php echo "<h3>hi This is GIthub active and k8s Class!</h3>"; ?>
 
 </body>
