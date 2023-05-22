@@ -14,7 +14,7 @@ jobs:
 #       tag: $(date +%Y%m%d-%H.%M.%S)
 
 #       IMAGE_NAME: "phpcicd"
-#       DOCKER_REGISTRY: "muhammadusama7"
+#       DOCKER_REGISTRY: "muhammadusama7 "
 
       CI_REGISTRY_IMAGE: muhammadusama7/phpcicd:latest
 
