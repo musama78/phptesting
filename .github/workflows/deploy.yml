@@ -13,8 +13,8 @@ jobs:
     env:
 #       tag: $(date +%Y%m%d-%H.%M.%S)
 
-#       IMAGE_NAME: "phpcicd"
-#       DOCKER_REGISTRY: "muhammadusama7 "
+      IMAGE_NAME: "phpcicd"
+      DOCKER_REGISTRY: "muhammadusama7"
 
       CI_REGISTRY_IMAGE: muhammadusama7/phpcicd
 
@@ -37,12 +37,13 @@ jobs:
         tag=$(date +%Y%m%d-%H.%M.%S)
         docker build -t $CI_REGISTRY_IMAGE:${tag} .
         echo "-------------------- Image Build Done --------------------"
-        
-        export IMAGENAME=$CI_REGISTRY_IMAGE
-        echo $IMAGENAME
-
         docker push $CI_REGISTRY_IMAGE:${tag}
         echo "-------------------- Image Push Done --------------------"
+        export REPONAME=$DOCKER_REGISTRY
+        echo $REPONAME
+
+        export IMAGENAME=$IMAGE_NAME
+        echo IMAGENAME
         
         export IMAGETAG=${tag}
         echo $IMAGETAG
