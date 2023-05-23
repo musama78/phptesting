@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: php-app
-        image: IMAGENAME:IMAGETAG
+        image: muhammadusama7/phpcicd:$IMAGETAG
         ports:
         - containerPort: 80

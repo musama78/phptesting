@@ -39,12 +39,7 @@ jobs:
         echo "-------------------- Image Build Done --------------------"
         docker push $CI_REGISTRY_IMAGE:${tag}
         echo "-------------------- Image Push Done --------------------"
-        export REPONAME=$DOCKER_REGISTRY
-        echo $REPONAME
-
-        export IMAGENAME=$IMAGE_NAME
-        echo IMAGENAME
-        
+                
         export IMAGETAG=${tag}
         echo $IMAGETAG
         echo "-------------------- Variable Export Done --------------------"
