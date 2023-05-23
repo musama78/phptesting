@@ -39,6 +39,9 @@ jobs:
         echo "-------------------- Image Build Done --------------------"
         docker push $CI_REGISTRY_IMAGE:${tag}
         echo "-------------------- Image Push Done --------------------"
+        export IMAGENAME = $CI_REGISTRY_IMAGE
+        export IMAGETAG = ${tag}
+        echo "-------------------- Variable Export Done --------------------"
         envsubst < deployment.yml | kubectl apply -f -
         kubectl apply -f service.yml
 

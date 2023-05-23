@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: php-app
-        image: ${CI_REGISTRY_IMAGE}:${tag}
+        image: IMAGENAME:IMAGETAG
         ports:
         - containerPort: 80
