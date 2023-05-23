@@ -7,8 +7,8 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: self-hosted
-#    runs-on: ubuntu-latest
+#     runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     env:
 #       tag: $(date +%Y%m%d-%H.%M.%S)
@@ -16,7 +16,7 @@ jobs:
 #       IMAGE_NAME: "phpcicd"
 #       DOCKER_REGISTRY: "muhammadusama7 "
 
-      CI_REGISTRY_IMAGE: muhammadusama7/phpcicd:latest
+      CI_REGISTRY_IMAGE: muhammadusama7/phpcicd
 
       CI_REGISTRY_USER: ${{ secrets.DOCKER_HUB_USERNAME }}
       CI_REGISTRY_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
@@ -32,11 +32,19 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-    - name: Docker build
-      run: docker build -t $CI_REGISTRY_IMAGE .
+    - name: Build and Tag Image
+      run: |
+        tag=$(date +%Y%m%d-%H.%M.%S)
+        imageWithTag="$CI_REGISTRY_IMAGE:${tag}"
+        docker build -t $imageWithTag .
+        echo "-------------------- Image Build Done --------------------"
+          
+
+#     - name: Docker build
+#       run: docker build -t $imageWithTag .
 
     - name: Docker push
-      run: docker push $CI_REGISTRY_IMAGE
+      run: docker push $imageWithTag
       
     - name: Deploy to Kubernetes
       run: |
