@@ -35,8 +35,8 @@ jobs:
     - name: Build and Tag Image
       run: |
         tag=$(date +%Y%m%d-%H.%M.%S)
-        imageWithTag="$CI_REGISTRY_IMAGE:${tag}"
-        docker build -t $imageWithTag .
+#        imageWithTag="$CI_REGISTRY_IMAGE:${tag}"
+        docker build -t $CI_REGISTRY_IMAGE:${tag} .
         echo "-------------------- Image Build Done --------------------"
           
 
@@ -44,7 +44,7 @@ jobs:
 #       run: docker build -t $imageWithTag .
 
     - name: Docker push
-      run: docker push $imageWithTag
+      run: docker push $CI_REGISTRY_IMAGE:${tag}
       
     - name: Deploy to Kubernetes
       run: |
