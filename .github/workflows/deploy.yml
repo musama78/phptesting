@@ -37,10 +37,13 @@ jobs:
         tag=$(date +%Y%m%d-%H.%M.%S)
         docker build -t $CI_REGISTRY_IMAGE:${tag} .
         echo "-------------------- Image Build Done --------------------"
-        docker push $CI_REGISTRY_IMAGE:${tag}
-        echo "-------------------- Image Push Done --------------------"
+        
         export IMAGENAME=$CI_REGISTRY_IMAGE
         echo $IMAGENAME
+
+        docker push $CI_REGISTRY_IMAGE:${tag}
+        echo "-------------------- Image Push Done --------------------"
+        
         export IMAGETAG=${tag}
         echo $IMAGETAG
         echo "-------------------- Variable Export Done --------------------"
