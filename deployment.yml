@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: php-app
-        image: muhammadusama7/phpcicd:latest
+        image: ${CI_REGISTRY_IMAGE}:${tag}
         ports:
         - containerPort: 80

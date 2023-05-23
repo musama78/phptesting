@@ -39,7 +39,8 @@ jobs:
         echo "-------------------- Image Build Done --------------------"
         docker push $CI_REGISTRY_IMAGE:${tag}
         echo "-------------------- Image Push Done --------------------"
-          
+        envsubst < deployment.yml | kubectl apply -f -
+        kubectl apply -f service.yml
 
 #     - name: Docker build
 #       run: docker build -t $imageWithTag .
@@ -47,10 +48,10 @@ jobs:
 #     - name: Docker push
 #       run: docker push $CI_REGISTRY_IMAGE:${tag}
       
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl apply -f deployment.yml
-        kubectl apply -f service.yml
+    # - name: Deploy to Kubernetes
+    #   run: |
+    #     kubectl apply -f deployment.yml
+    #     kubectl apply -f service.yml
 #     - name: Deploy to k8s
 #       run: |
 #         kubectl run my-pod --image=muhammadusama7/phpcicd:latest --insecure-skip-tls-verify
