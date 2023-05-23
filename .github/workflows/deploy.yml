@@ -35,7 +35,6 @@ jobs:
     - name: Build and Tag Image
       run: |
         tag=$(date +%Y%m%d-%H.%M.%S)
-#        imageWithTag="$CI_REGISTRY_IMAGE:${tag}"
         docker build -t $CI_REGISTRY_IMAGE:${tag} .
         echo "-------------------- Image Build Done --------------------"
           
